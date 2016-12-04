@@ -1,10 +1,3 @@
-#Look for #IMPLEMENT tags in this file. These tags indicate what has
-#to be implemented to complete the hitori models.  
-
-'''
-Construct and return hitori CSP models.
-'''
-
 from cspbase import *
 import itertools
 
