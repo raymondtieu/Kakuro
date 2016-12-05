@@ -67,6 +67,28 @@ def init_variables(board):
 
 	return all_vars
 
+def get_entries(lst, is_row):
+	all_entries = []
+	part = []
+	entry = {}
+
+	for i in lst:
+		e = i[0] # first domain value
+
+		if isinstance(e, tuple):
+			# new partition
+			if 'clue' in entry:
+				part = []
+
+			entry = {'clue': e[1] if is_row else e[0], 'part': part}
+			all_entries.append(entry)
+		elif e != 0:
+			# add onto existing partition
+			part.append(i)
+
+	return all_entries
+
+
 def sat_tuples(domain, clue):
 	'''
 	Return a list of all satisfying tuples given a domain for a Kakuro entry.
@@ -88,6 +110,10 @@ if __name__ == '__main__':
 	    [0,(4,4),None,None],
 	    [(0,7),None,None,None],
 	    [(0,6),None,None,None]]
-	    
-	print(sat_tuples([[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]], 4))
+
+	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]]
+#	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[(0,15)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[0],[(0,9)],[1,2,3,4,5,6,7]]
+
+	#print(sat_tuples(row, 4))
+	print(get_entries(row, True))
 
