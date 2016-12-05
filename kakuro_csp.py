@@ -52,6 +52,19 @@ def kakuro_csp_model(initial_kakuro_board):
 def init_variables(board):
 	all_vars = []
 
+	for i in range(len(board)):
+		row_vars = []
+		for j in range(len(board)):
+			# add new Variable to row, with name Ki,j
+			if board[i][j] == 0:
+				row_vars.append(Variable('K{},{}'.format(i,j), [0]))
+			elif isinstance(board[i][j], tuple):
+				row_vars.append(Variable('K{},{}'.format(i,j), [board[i][j]]))
+			elif board[i][j] == None:
+				row_vars.append(Variable('K{},{}'.format(i,j), [1,2,3,4,5,6,7,8,9]))
+			
+		all_vars.append(row_vars)
+
 	return all_vars
 
 def sat_tuples(domain):
