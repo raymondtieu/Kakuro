@@ -67,17 +67,27 @@ def init_variables(board):
 
 	return all_vars
 
-def sat_tuples(domain):
+def sat_tuples(domain, clue):
 	'''
-	Return a list of all satisfying tuples given a domain for Kakuro.
+	Return a list of all satisfying tuples given a domain for a Kakuro entry.
 	* Each entry must not have duplicate numbers
-	* The sum of each entry matches the clue for the entry
+	* The sum of all entries matches the clue for the entry
 	'''
-	return []
+	return [solution for solution in itertools.product(*domain) if verify_satified_constraints(solution, clue)]
 
-def verify_satified_constraints(solution):
+def verify_satified_constraints(solution, clue):
 	'''
 	Return True if the solution list satifies all constraints for Kakuro
 	'''
-	return False
+	entries = [x for x in solution if not isinstance(x, tuple)]
+	return sum(entries) == clue
+
+
+if __name__ == '__main__':
+	board = [[0,0,(7,0),(6,0)],
+	    [0,(4,4),None,None],
+	    [(0,7),None,None,None],
+	    [(0,6),None,None,None]]
+	    
+	print(sat_tuples([[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]], 4))
 
