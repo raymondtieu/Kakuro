@@ -45,6 +45,20 @@ def kakuro_csp_model(initial_kakuro_board):
 	   An entry is defined by a continuous line of 'white' cells, horizontal or 
 	   vertical. 
 	'''
+	vars = init_variables(initial_kakuro_board)
+	cons = []
+
+	# Add row constraints
+	for i in range(len(initial_kakuro_board)):
+		scope = get_entries(vars[i], True)
+		for entry in scope:
+			print(entry['part'])
+			if entry['part']:
+				con = Constraint('row-{}'.format(i), entry['part'])
+				domain = [var.cur_domain() for var in entry['part']]
+				con.add_satisfying_tuples(sat_tuples(domain, entry['clue']))
+				cons.append(con)
+	print(cons)
 
 	return 0
 
@@ -73,7 +87,7 @@ def get_entries(lst, is_row):
 	entry = {}
 
 	for i in lst:
-		e = i[0] # first domain value
+		e = i.cur_domain()[0] # first domain value
 
 		if isinstance(e, tuple):
 			# new partition
@@ -88,6 +102,20 @@ def get_entries(lst, is_row):
 
 	return all_entries
 
+def get_entries_board(board):
+	# convert rows to domains
+	for row in board:
+		print(get_entries(row, True))
+
+	# Columns
+	columns = []
+	for i in range(len(board)):
+		columns.append([row[i] for row in board])
+
+	for column in columns:
+		print(get_entries(column, False))
+
+	return 0 
 
 def sat_tuples(domain, clue):
 	'''
@@ -113,7 +141,15 @@ if __name__ == '__main__':
 
 	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]]
 #	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[(0,15)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[0],[(0,9)],[1,2,3,4,5,6,7]]
-
+	# [[Var-K0,0, Var-K0,1, Var-K0,2, Var-K0,3], [Var-K1,0, Var-K1,1, Var-K1,2, Var-K1,3], [Var-K2,0, Var-K2,1, Var-K2,2, Var-K2,3], [Var-K3,0, Var-K3,1, Var-K3,2, Var-K3,3]]
 	#print(sat_tuples(row, 4))
-	print(get_entries(row, True))
+	#print(get_entries(row, True))
 
+	test = init_variables(board)
+
+	#print(test)
+	#print(test[1][2].cur_domain())
+
+	get_entries_board(test)
+	print('----------')
+	kakuro_csp_model(board)
