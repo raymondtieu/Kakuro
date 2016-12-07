@@ -27,3 +27,9 @@ def prop_BT(csp, newVar=None):
     return True, []
 
 
+def prop_FC(csp, newVar=None):
+    if not newVar:
+        return True, []
+        
+    return True, []
+
