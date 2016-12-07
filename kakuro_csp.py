@@ -53,7 +53,6 @@ def kakuro_csp_model(initial_kakuro_board):
 		entries = get_entries(board[i], True)
 		for e in entries:
 			scope = e['part']
-			print(scope)
 			if len(scope) > 0:
 				con = Constraint('row-{}'.format(i), scope)
 				domain = [var.cur_domain() for var in scope]
@@ -67,26 +66,18 @@ def kakuro_csp_model(initial_kakuro_board):
 
 		for e in entries:
 			scope = e['part']
-			print(scope)
 			if len(scope) > 0:
 				con = Constraint('col-{}'.format(i), scope)
 				domain = [var.cur_domain() for var in scope]
 				con.add_satisfying_tuples(sat_tuples(domain, e['clue']))
 				cons.append(con)
 
-	print(cons)
-
 	vars = []
-
-
-	# filter any non Variable elements in board
+	# remove any non Variable elements in board
 	for row in board:
 		only_vars = [e for e in row if isinstance(e, Variable)]
 		if len(only_vars) > 0:
 			vars.append(only_vars)
-		
-
-	print(vars)
 
 	csp = CSP('kakuro_csp_model', vars=list(itertools.chain.from_iterable(vars)))
 	for c in cons:
