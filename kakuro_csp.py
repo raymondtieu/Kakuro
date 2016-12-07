@@ -45,22 +45,54 @@ def kakuro_csp_model(initial_kakuro_board):
 	   An entry is defined by a continuous line of 'white' cells, horizontal or 
 	   vertical. 
 	'''
-	vars = init_variables(initial_kakuro_board)
+	board = init_variables(initial_kakuro_board)
 	cons = []
 
 	# Add row constraints
 	for i in range(len(initial_kakuro_board)):
-		scope = get_entries(vars[i], True)
-		for entry in scope:
-			print(entry['part'])
-			if entry['part']:
-				con = Constraint('row-{}'.format(i), entry['part'])
-				domain = [var.cur_domain() for var in entry['part']]
-				con.add_satisfying_tuples(sat_tuples(domain, entry['clue']))
+		entries = get_entries(board[i], True)
+		for e in entries:
+			scope = e['part']
+			print(scope)
+			if len(scope) > 0:
+				con = Constraint('row-{}'.format(i), scope)
+				domain = [var.cur_domain() for var in scope]
+				con.add_satisfying_tuples(sat_tuples(domain, e['clue']))
 				cons.append(con)
+
+	# Add column constraints
+	for i in range(len(initial_kakuro_board)):
+		col = [board[j][i] for j in range(len(initial_kakuro_board))]
+		entries = get_entries(col, False)
+
+		for e in entries:
+			scope = e['part']
+			print(scope)
+			if len(scope) > 0:
+				con = Constraint('col-{}'.format(i), scope)
+				domain = [var.cur_domain() for var in scope]
+				con.add_satisfying_tuples(sat_tuples(domain, e['clue']))
+				cons.append(con)
+
 	print(cons)
 
-	return 0
+	vars = []
+
+
+	# filter any non Variable elements in board
+	for row in board:
+		only_vars = [e for e in row if isinstance(e, Variable)]
+		if len(only_vars) > 0:
+			vars.append(only_vars)
+		
+
+	print(vars)
+
+	csp = CSP('kakuro_csp_model', vars=list(itertools.chain.from_iterable(vars)))
+	for c in cons:
+		csp.add_constraint(c)
+
+	return csp, vars
 
 ### Helper Functions ###
 def init_variables(board):
@@ -70,12 +102,10 @@ def init_variables(board):
 		row_vars = []
 		for j in range(len(board)):
 			# add new Variable to row, with name Ki,j
-			if board[i][j] == 0:
-				row_vars.append(Variable('K{},{}'.format(i,j), [0]))
-			elif isinstance(board[i][j], tuple):
-				row_vars.append(Variable('K{},{}'.format(i,j), [board[i][j]]))
-			elif board[i][j] == None:
+			if board[i][j] == None:
 				row_vars.append(Variable('K{},{}'.format(i,j), [1,2,3,4,5,6,7,8,9]))
+			else:
+				row_vars.append(board[i][j])
 			
 		all_vars.append(row_vars)
 
@@ -86,9 +116,7 @@ def get_entries(lst, is_row):
 	part = []
 	entry = {}
 
-	for i in lst:
-		e = i.cur_domain()[0] # first domain value
-
+	for e in lst:
 		if isinstance(e, tuple):
 			# new partition
 			if 'clue' in entry:
@@ -98,7 +126,7 @@ def get_entries(lst, is_row):
 			all_entries.append(entry)
 		elif e != 0:
 			# add onto existing partition
-			part.append(i)
+			part.append(e)
 
 	return all_entries
 
@@ -129,6 +157,9 @@ def verify_satified_constraints(solution, clue):
 	'''
 	Return True if the solution list satifies all constraints for Kakuro
 	'''
+	if len(solution) != len(set(solution)):
+		return False
+
 	entries = [x for x in solution if not isinstance(x, tuple)]
 	return sum(entries) == clue
 
@@ -150,6 +181,6 @@ if __name__ == '__main__':
 	#print(test)
 	#print(test[1][2].cur_domain())
 
-	get_entries_board(test)
-	print('----------')
+#	get_entries_board(test)
+#	print('----------')
 	kakuro_csp_model(board)
