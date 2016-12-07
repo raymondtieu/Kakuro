@@ -16,6 +16,7 @@ def prop_BT(csp, newVar=None):
 
     if not newVar:
         return True, []
+
     for c in csp.get_cons_with_var(newVar):
         if c.get_n_unasgn() == 0:
             vals = []
@@ -30,6 +31,13 @@ def prop_BT(csp, newVar=None):
 def prop_FC(csp, newVar=None):
     if not newVar:
         return True, []
-        
+
+    for c in csp.get_cons_with_var(newVar):
+        # get all unassigned neighbours of newVar
+        # remove all values from neighbours that are inconsistent by assigning newVar
+        # if none of the neighbours have a DWO, return true with pruned (variable,value) pairs
+        # else return false
+        return False, []
+
     return True, []
 
