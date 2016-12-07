@@ -1,7 +1,7 @@
 from cspbase import *
 import itertools
 
-def kakuro_csp_model(initial_kakuro_board):
+def kakuro_csp_model(initial_kakuro_board, m, n):
 	'''Return a CSP object representing a kakuro CSP problem along 
 	   with an array of variables for the problem. That is return
 
@@ -19,7 +19,7 @@ def kakuro_csp_model(initial_kakuro_board):
 
 	   such that variable_array[i][j] is the Variable (object) that
 	   you built to represent the value to be placed in cell i,j of
-	   the kakuro board (indexed from (0,0) to (n,n))
+	   the kakuro board (indexed from (0,0) to (m,n))
 
 	   The input board is specified as a list of n lists. Each of the
 	   n lists represents a row of the board. Each item in the list 
@@ -45,11 +45,13 @@ def kakuro_csp_model(initial_kakuro_board):
 	   An entry is defined by a continuous line of 'white' cells, horizontal or 
 	   vertical. 
 	'''
-	board = init_variables(initial_kakuro_board)
+	# m = the number of rows 
+	# n = number of columns
+	board = init_variables(initial_kakuro_board, m, n)
 	cons = []
 
 	# Add row constraints
-	for i in range(len(initial_kakuro_board)):
+	for i in range(m):
 		entries = get_entries(board[i], True)
 		for e in entries:
 			scope = e['part']
@@ -60,8 +62,8 @@ def kakuro_csp_model(initial_kakuro_board):
 				cons.append(con)
 
 	# Add column constraints
-	for i in range(len(initial_kakuro_board)):
-		col = [board[j][i] for j in range(len(initial_kakuro_board))]
+	for i in range(n):
+		col = [board[j][i] for j in range(m)]
 		entries = get_entries(col, False)
 
 		for e in entries:
@@ -82,16 +84,16 @@ def kakuro_csp_model(initial_kakuro_board):
 	csp = CSP('kakuro_csp_model', vars=list(itertools.chain.from_iterable(vars)))
 	for c in cons:
 		csp.add_constraint(c)
-
+	
 	return csp, vars
 
 ### Helper Functions ###
-def init_variables(board):
+def init_variables(board, m, n):
 	all_vars = []
 
-	for i in range(len(board)):
+	for i in range(m):
 		row_vars = []
-		for j in range(len(board)):
+		for j in range(n):
 			# add new Variable to row, with name Ki,j
 			if board[i][j] == None:
 				row_vars.append(Variable('K{},{}'.format(i,j), [1,2,3,4,5,6,7,8,9]))

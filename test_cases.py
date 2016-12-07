@@ -22,20 +22,20 @@ def test_full_run(model, stu_orderings, name=""):
         [(0,7),None,None,None],
         [(0,6),None,None,None]]
 
-        csp,var_array = model(board)
+        csp,var_array = model(board, 4, 4)
         solver = BT(csp)
         solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
 
 
-        board = [[0, 0, (23,0), (21,0), 0, 0],
-                 [0, (15,8), None, None, 0, 0],
-                 [0, None, None, None, 0, 0],
-                 [(0,27), None, None, None, None, 0],
-                 [(0,5), None, None, 0, 0, 0],
-                 [(0,14), None, None, 0, 0, 0]
+        board = [[0, 0, (23,0), (21,0), 0],
+                 [0, (15,8), None, None, 0],
+                 [0, None, None, None, 0],
+                 [(0,27), None, None, None, None],
+                 [(0,5), None, None, 0, 0],
+                 [(0,14), None, None, 0, 0]
                 ]
-
-        csp,var_array = model(board)
+        csp,var_array = model(board, 6, 5)
+        
         solver = BT(csp)
         solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
 
