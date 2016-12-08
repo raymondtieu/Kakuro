@@ -10,11 +10,12 @@ from kakuro_csp import *
 ##############
 ##MODEL TEST CASES (KAKURO)
 
-FC = "fc"
-GAC = "gac"
-MRV = "mrv"
-DH = "dh"
-LCV = "lcv"
+FC = "FC"
+GAC = "FAC"
+MRV = "MRV"
+DH = "DH"
+ARB = "ARB"
+LCV = "LCV"
 
 def test_5x5_boards(model, orderings):
     print("--------------------")
@@ -233,34 +234,55 @@ def test_15x30_board(model, orderings):
 
 
 def use_mode(model, orderings, board, propagator=None):
-    try:
-        csp,var_array = model(board)
-        solver = BT(csp)
+    var_orderings = [MRV]#, DH]
+    val_orderings = [ARB]#, LCV]
 
-        if propagator is None:
-            print("--------------------------------------")
-            print("==== Running BT with MRV ordering ====")
-            print("--------------------------------------")
-            solver.bt_search(prop_BT, orderings.ord_mrv, orderings.val_arbitrary)
-        elif propagator == FC:
-            print("-----------------------------------------------")
-            print("==== Running BT using FC with MRV ordering ====")
-            print("-----------------------------------------------")
-            solver.bt_search(prop_FC, orderings.ord_mrv, orderings.val_arbitrary)
-        elif propagator == GAC:
-            print("------------------------------------------------")
-            print("==== Running BT using GAC with MRV ordering ====")
-            print("------------------------------------------------")
-            solver = BT(csp)
-            solver.bt_search(prop_GAC, orderings.ord_mrv, orderings.val_arbitrary)
+    for o in var_orderings:
+        var_ordering = None
 
-        if check_solution(board, csp.get_all_cons()):
-            print("Solution has been verified.")
+        if o == MRV:
+            var_ordering = orderings.ord_mrv
+        elif o == DH:
+            var_ordering = orderings.ord_dh
         else:
-            print("This is not a valid Kakuro solution for the board.")
+            var_ordering = orderings.ord_lcv
 
-    except Exception:
-        print("One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc()))
+        for v in val_orderings:
+            val_ordering = None
+
+            if v == ARB:
+                val_ordering = orderings.val_arbitrary
+            else:
+                val_ordering = orderings.val_lcv
+
+            try:
+                csp,var_array = model(board)
+                solver = BT(csp)
+
+                if propagator is None:
+                    print("--------------------------------------------")
+                    print("==== Running BT with", o, "+", v, "ordering ====")
+                    print("--------------------------------------------")
+                    solver.bt_search(prop_BT, var_ordering, val_ordering)
+                elif propagator == FC:
+                    print("-----------------------------------------------------")
+                    print("==== Running BT using FC with", o, "+", v, "ordering ====")
+                    print("-----------------------------------------------------")
+                    solver.bt_search(prop_FC, var_ordering, val_ordering)
+                elif propagator == GAC:
+                    print("------------------------------------------------------")
+                    print("==== Running BT using GAC with", o, "+", v, "ordering ====")
+                    print("------------------------------------------------------")
+                    solver = BT(csp)
+                    solver.bt_search(prop_GAC, var_ordering, val_ordering)
+
+                if check_solution(board, csp.get_all_cons()):
+                    print("Solution has been verified.")
+                else:
+                    print("This is not a valid Kakuro solution for the board.")
+
+            except Exception:
+                print("One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc()))
 
 
 def check_solution(kakuro_board, cons):
