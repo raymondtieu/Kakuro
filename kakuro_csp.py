@@ -1,7 +1,7 @@
 from cspbase import *
 import itertools
 
-def kakuro_csp_model(initial_kakuro_board, m, n):
+def kakuro_csp_model(initial_kakuro_board):
 	'''Return a CSP object representing a kakuro CSP problem along 
 	   with an array of variables for the problem. That is return
 
@@ -47,6 +47,9 @@ def kakuro_csp_model(initial_kakuro_board, m, n):
 	'''
 	# m = the number of rows 
 	# n = number of columns
+	m = len(initial_kakuro_board)
+	n = len(initial_kakuro_board[0])
+
 	board = init_variables(initial_kakuro_board, m, n)
 	cons = []
 

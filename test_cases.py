@@ -17,27 +17,67 @@ def model_import(stu_models):
 def test_full_run(model, stu_orderings, name=""):
     score = 0
     try:
+        # 4x4
         board = [[0,0,(7,0),(6,0)],
         [0,(4,4),None,None],
         [(0,7),None,None,None],
         [(0,6),None,None,None]]
 
-        csp,var_array = model(board, 4, 4)
-        solver = BT(csp)
-        solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+        # 2x2
+        board = [[0,(14,0),(13,0)],
+                 [(0,17), None, None],
+                 [(0,10),None,None]]
 
-
+        # 6x5
         board = [[0, 0, (23,0), (21,0), 0],
                  [0, (15,8), None, None, 0],
                  [0, None, None, None, 0],
                  [(0,27), None, None, None, None],
                  [(0,5), None, None, 0, 0],
-                 [(0,14), None, None, 0, 0]
-                ]
-        csp,var_array = model(board, 6, 5)
-        
+                 [(0,14), None, None, 0, 0]]
+
+        # no solution
+        board = [[0,0,(7,0),(6,0)],
+                 [0,(4,4),None,None],
+                 [(0,7),None,None,None],
+                 [(0,10),None,None,None]]
+
+        # 9x8
+        board = [[0, 0, (22,0), (15,0), 0, 0, 0, 0],
+                 [0, (3,7), None, None, (5,0), 0, 0, 0],
+                 [(0,18), None, None, None, None, (13,0), 0, 0],
+                 [(0,5), None, None, (11,10), None, None, (21, 0), 0],
+                 [0, (0,3), None, None, (0,6), None, None, 0],
+                 [0, (0,16), None, None, (14,5), None, None, (4,0)],
+                 [0, 0, (0,11), None, None, (16,9), None, None],
+                 [0, 0, 0, (0,20), None, None, None, None],
+                 [0, 0, 0, 0, (0,14), None, None, 0]]
+
+        # 15x30 
+        # board = [[0, (4,0), (11,0), 0, (3,0), (24, 0), 0, 0, 0, (16,0), (23, 0), (7,0), 0, 0, (24,0), (3,0), 0, (11, 0), (4, 0), (16, 0), 0, (29, 0), (3, 0), 0, 0, 0, 0, (10,0), (23,0), 0],
+        #          [(0,3), None, None, (24,10), None, None, 0, (35, 0), (17,19), None, None, None, 0, (0,10), None, None, (3,12), None, None, None, (0,11), None, None, 0, 0, (6,0), (30,16), None, None, 0],
+        #          [(0,23), None, None, None, None, None, (3, 31), None, None, None, None, None, 0, (10,26), None, None, None, None, None, None, (40, 6), None, None, 0, (19,22), None, None, None, None, 0],
+        #          [0, (0,13), None, None, (0,26), None, None, None, None, (0,11), None, None, (17,10), None, None, (0, 5), None, None, (16,0), (0,13), None, None, 0, (0,24), None, None, None, None, None, 0],
+        #          [0, (0,10), None, None, 0, (0,9), None, None, (16,0), 0, (38,0), (3,11), None, None, 0, 0, (0,10), None, None, (16,11), None, None, 0, (6,17), None, None, None, (4,0), 0, 0],
+        #          [0, 0, 0, 0, 0, 0, (4,12), None, None, (23,15), None, None, None, None, (16,0), (29,0), 0, (0,17), None, None, None, 0, (16,3), None, None, (8,7), None, None, (3,0), (4,0)],
+        #          [0, 0, 0, 0, (4,0), (23,35), None, None, None, None, None, None, (0,15), None, None, None, 0, 0, (0,9), None, None, (23,15), None, None, None, None, (3,6), None, None, None],
+        #          [0, (17,0), (16,0), (0,13), None, None, None, (23,0), (4,10), None, None, 0, 0, (0,16),None, None, (17,0), 0, 0, (0,21), None, None, None, None, (17,3), None, None, (0,4), None, None],
+        #          [(0,16), None, None, (3,7),None, None, (13,25), None, None, None, None, (3,0), 0, 0, (0,15), None, None, (10,0), 0, (4,17), None, None, (3,0), (16,12), None, None, None, 0, 0, 0],
+        #          [(0,19),None, None, None, (11,17), None, None, None, None, (0,4), None, None, (17,0), None, (0,18), None, None, None, (17,32), None, None, None, None, None, None, 0, 0, 0, 0, 0],
+        #          [0, 0, (0,4), None, None, (24,11), None, None, 0, (29,17), None, None, None, (10,0), 0, 0, (0,20), None, None, None, None, (0,3), None, None, (3,0), 0, 0, (23,0), (11,0), 0],
+        #          [0, 0, (6,0), (23,16), None, None, None, 0, (0,16), None, None, (0,10), None, None, (16,0), 0, (24,12), None, None, (6,0), (24,0), 0, (17,8), None, None, (24,0), (0,13), None, None, 0],
+        #          [0, (0,26), None, None, None, None, None, 0, (4,9), None, None, (16,0), (3,10), None, None, (4,13),None, None, (0,9), None, None, (4,21), None, None, None, None, (3,8), None, None, (17,0)],
+        #          [0, (0,19), None, None, None, None, 0, (0,12), None, None, (0,30), None, None, None, None, None, None, 0, (0,21), None, None, None, None, None, (0,27), None, None, None, None, None],
+        #          [0, (0,8), None, None, 0, 0, 0, (0,9), None, None, (0,14), None, None, None, (0,8), None, None, 0, (0,14), None, None, None, 0, 0, (0, 10), None, None, (0,12), None, None]
+        #         ]
+
+        csp,var_array = model(board)
         solver = BT(csp)
         solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+
+        print("===== FC ====")
+        solver.bt_search(prop_FC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+
 
         if check_solution(var_array):
             score = 5
