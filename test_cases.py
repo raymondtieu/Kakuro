@@ -53,6 +53,25 @@ def test_9x8_boards(model, stu_orderings, name=""):
     use_Mode(model, stu_orderings, board, "FC", name="")
     use_Mode(model, stu_orderings, board, "GAC", name="")
 
+    print("--------------------")
+    print("Testing 9x8 board #3")
+    print("--------------------")
+    
+    board = [[0, 0, (22,0), (15,0), 0, 0, 0, 0],
+              [0, (3,7), None, None, (5,0), 0, 0, 0],
+              [(0,18), None, None, None, None, (13,0), 0, 0],
+              [(0,5), None, None, (11,10), None, None, (21, 0), 0],
+              [0, (0,3), None, None, (0,6), None, None, 0],
+              [0, (0,16), None, None, (14,5), None, None, (4,0)],
+              [0, 0, (0,11), None, None, (16,9), None, None],
+              [0, 0, 0, (0,20), None, None, None, None],
+              [0, 0, 0, 0, (0,14), None, None, 0]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
 def test_13x13_boards(model, stu_orderings, name=""):
     
     print("--------------------")
