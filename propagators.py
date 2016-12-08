@@ -10,6 +10,8 @@ Consider implementing propagators for forward cehcking or GAC as a course projec
 
 '''
 
+from collections import deque
+
 def prop_BT(csp, newVar=None):
     '''Do plain backtracking propagation. That is, do no
     propagation at all. Just check fully instantiated constraints'''
@@ -26,7 +28,6 @@ def prop_BT(csp, newVar=None):
             if not c.check(vals):
                 return False, []
     return True, []
-    
 
 def prop_FC(csp, newVar=None):
     if not newVar:
@@ -51,5 +52,37 @@ def prop_FC(csp, newVar=None):
             # if pruning inconsistent values results in a DWO, backtrack
             if (v.cur_domain_size() == 0):
                 return False, pruned
+
+    return True, pruned
+
+def prop_GAC(csp, newVar=None):
+    '''
+        
+    '''
+    gac_queue = deque()
+    pruned = []
+
+    if not newVar:
+        gac_queue.extend(csp.get_all_cons())
+    else:
+        gac_queue.extend(csp.get_cons_with_var(newVar))
+
+    while len(gac_queue) > 0:
+        c = gac_queue.popleft()
+
+        for v in c.get_unasgn_vars():
+            for d in v.cur_domain():
+                if not c.has_support(v, d):
+                    v.prune_value(d)
+                    pruned.append((v, d))
+
+                    # if pruning values results in a DWO, return
+                    if v.cur_domain_size() == 0:
+                        gac_queue.clear()
+                        return False, pruned
+
+                    # push all new constraints into queue
+                    new_cons = [con for con in csp.get_cons_with_var(v) if con not in gac_queue]
+                    gac_queue.extend(new_cons)
 
     return True, pruned
