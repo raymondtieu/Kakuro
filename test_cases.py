@@ -21,22 +21,58 @@ def test_full_run(model, stu_orderings, name=""):
     try:
         # 4x4
         board = [[0,0,(7,0),(6,0)],
-        [0,(4,4),None,None],
-        [(0,7),None,None,None],
-        [(0,6),None,None,None]]
+                 [0,(4,4),None,None],
+                 [(0,7),None,None,None],
+                 [(0,6),None,None,None]
+                ]
+        
+        board = [[0,(17,0),(12,0),(10,0)],
+                 [(0,23),None,None,None],
+                 [(0,9),None,None,None],
+                 [(0,7),None,None,None]
+                ]
+        
+        board = [[0,0,(7,0),(6,0)],
+                 [0,(4,4),None,None],
+                 [(0,7),None,None,None],
+                 [(0,6),None,None,None]
+                ]
 
         # 2x2
         board = [[0,(14,0),(13,0)],
                  [(0,17), None, None],
                  [(0,10),None,None]]
-
+        
+        # 3x3
+        board = [[0,(14,0),(9,0)],
+                 [(0,16),None,None],
+                 [(0,7),None,None]
+                ]
+        
+        # 5x5
+        board = [[0,(17,0),(7,0),0,0],
+                 [(0,9),None,None,(24,0),0],
+                 [(0,18),None,None,None,(16,0)],
+                 [0,(0,21),None,None,None],
+                 [0,0,(0,16),None,None]
+                ]
+        
+        board = [[0,0,0,(7,0),(24,0)],
+                 [0,(7,0),(23,10),None,None],
+                 [(0,16),None,None,None,None],
+                 [(0,23),None,None,None,None],
+                 [(0,12),None,None,0,0]
+                ]
+        
+        
         # 6x5
         board = [[0, 0, (23,0), (21,0), 0],
                  [0, (15,8), None, None, 0],
                  [0, None, None, None, 0],
                  [(0,27), None, None, None, None],
                  [(0,5), None, None, 0, 0],
-                 [(0,14), None, None, 0, 0]]
+                 [(0,14), None, None, 0, 0]
+                ]
 
         # no solution
         board = [[0,0,(7,0),(6,0)],
@@ -54,6 +90,59 @@ def test_full_run(model, stu_orderings, name=""):
                  [0, 0, (0,11), None, None, (16,9), None, None],
                  [0, 0, 0, (0,20), None, None, None, None],
                  [0, 0, 0, 0, (0,14), None, None, 0]]
+        
+        board = [[0,(11,0),(5,0),0,0,(19,0),(14,0),0],
+                 [(0,8),None,None,(8,0),(0,11),None,None,0],
+                 [(0,10),None,None,None,(20,9),None,None,0],
+                 [0,0,(0,12),None,None,None,0,0],
+                 [0,0,0,(18,13),None,None,0,0],
+                 [0,0,(0,11),None,None,(5,0),0,0],
+                 [0,0,(17,18),None,None,None,(4,0),(11,0)],
+                 [0,(0,13),None,None,(0,13),None,None,None],
+                 [0,(0,9),None,None,0,(0,5),None,None]
+                ]
+        
+        board = [[0,0,0,(13,0),(8,0),0,0,0],
+                 [0,0,(0,16),None,None,(20,0),0,0],
+                 [0,(5,0),(12,10),None,None,None,(22,0),0],
+                 [(0,4),None,None,0,(11,17),None,None,0],
+                 [(0,7),None,None,(18,15),None,None,None,(16,0)],
+                 [0,(0,15),None,None,None,(0,17),None,None],
+                 [0,(0,13),None,None,(13,0),(3,10),None,None],
+                 [0,0,(0,7),None,None,None,0,0],
+                 [0,0,0,(0,10),None,None,0,0]
+                ]
+        
+        # 13x13
+        board = [[0,0,0,(3,0),(10,0),0,(6,0),(16,0),(15,0),0,(16,0),(15,0),0],
+                 [0,0,(0,4),None,None,(0,14),None,None,None,(3,8),None,None,0],
+                 [0,0,(0,3),None,None,(3,26),None,None,None,None,None,None,(17,0)],
+                 [0,(17,0),(4,0),(0,9),None,None,None,(30,6),None,None,(0,11),None,None],
+                 [(0,10),None,None,(11,3),None,None,(0,8),None,None,0,(10,13),None,None],
+                 [(0,12),None,None,None,(16,0),0,(29,11),None,None,(17,7),None,None,0],
+                 [0,0,(0,11),None,None,(0,15),None,None,(0,11),None,None,0,0],
+                 [0,0,(34,10),None,None,(34,14),None,None,(0,9),None,None,(4,0),(3,0)],
+                 [0,(17,11),None,None,(0,17),None,None,0,(16,0),(11,8),None,None,None],
+                 [(0,13),None,None,0,(3,11),None,None,(23,8),None,None,(0,3),None,None],
+                 [(0,17),None,None,(17,8),None,None,(3,22),None,None,None,(17,0),0,0],
+                 [0,(0,31),None,None,None,None,None,None,(0,12),None,None,0,0],
+                 [0,(0,17),None,None,(0,17),None,None,None,(0,10),None,None,0,0]
+                ]
+        
+        board = [[0,(4,0),(23,0),0,0,(17,0),(3,0),0,0,0,0,0,0],
+                 [(0,12),None,None,(4,0),(28,9),None,None,0,0,0,0,0,0],
+                 [(0,29),None,None,None,None,None,None,0,0,0,0,0,0],
+                 [0,(0,9),None,None,None,(16,0),0,0,0,0,(16,0),(29,0),(7,0)],
+                 [0,0,0,(3,8),None,None,(6,0),0,(17,0),(42,21),None,None,None],
+                 [0,0,(30,17),None,None,None,None,(24,29),None,None,None,None,None],
+                 [0,(24,16),None,None,None,(17,27),None,None,None,None,(4,8),None,None],
+                 [(0,16),None,None,(3,23),None,None,None,None,(4,12),None,None,None,0],
+                 [(0,25),None,None,None,None,None,(0,18),None,None,None,None,0,0],
+                 [(0,19),None,None,None,0,0,0,(0,10),None,None,(3,0),(24,0),None],
+                 [0,0,0,0,0,0,0,(4,0),(17,18),None,None,None,(16,0)],
+                 [0,0,0,0,0,0,(0,34),None,None,None,None,None,None],
+                 [0,0,0,0,0,0,(0,9),None,None,0,(0,16),None,None]
+                ]
 
         # 15x30 
         # board = [[0, (4,0), (11,0), 0, (3,0), (24, 0), 0, 0, 0, (16,0), (23, 0), (7,0), 0, 0, (24,0), (3,0), 0, (11, 0), (4, 0), (16, 0), 0, (29, 0), (3, 0), 0, 0, 0, 0, (10,0), (23,0), 0],
