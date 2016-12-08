@@ -19,9 +19,10 @@ def test_full_run(model, stu_orderings, name=""):
     try:
         # 4x4
         board = [[0,0,(7,0),(6,0)],
-        [0,(4,4),None,None],
-        [(0,7),None,None,None],
-        [(0,6),None,None,None]]
+                 [0,(4,4),None,None],
+                 [(0,7),None,None,None],
+                 [(0,6),None,None,None]
+                ]
         
         board = [[0,(17,0),(12,0),(10,0)],
                  [(0,23),None,None,None],
