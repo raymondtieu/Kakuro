@@ -126,20 +126,6 @@ def get_entries(lst, is_row):
 
 	return all_entries
 
-def get_entries_board(board):
-	# convert rows to domains
-	for row in board:
-		print(get_entries(row, True))
-
-	# Columns
-	columns = []
-	for i in range(len(board)):
-		columns.append([row[i] for row in board])
-
-	for column in columns:
-		print(get_entries(column, False))
-
-	return 0 
 
 def sat_tuples(domain, clue):
 	'''
