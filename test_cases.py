@@ -175,7 +175,7 @@ def test_15x15_boards(model, orderings):
              [0,0,0,(0,10),None,None,0,0,0,0,0,0,(0,11),None,None]
             ]
 
-    use_mode(model, orderings, board, BT, name="")
+    # use_mode(model, orderings, board, BT, name="")
     use_mode(model, orderings, board, FC, name="")
     use_mode(model, orderings, board, GAC, name="")
 
@@ -200,7 +200,7 @@ def test_15x15_boards(model, orderings):
              [0,(0,11),None,None,(0,9),None,None,0,0,0,0,(0,4),None,None,0]
             ]
 
-    use_mode(model, orderings, board, BT, name="")
+    # use_mode(model, orderings, board, BT, name="")
     use_mode(model, orderings, board, FC, name="")
     use_mode(model, orderings, board, GAC, name="")
 
@@ -228,14 +228,14 @@ def test_15x30_board(model, orderings):
              [0, (0,8), None, None, 0, 0, 0, (0,9), None, None, (0,14), None, None, None, (0,8), None, None, 0, (0,14), None, None, None, 0, 0, (0, 10), None, None, (0,12), None, None]
             ]
 
-    use_mode(model, orderings, board)
+    # use_mode(model, orderings, board)
     use_mode(model, orderings, board, FC)
     use_mode(model, orderings, board, GAC)
 
 
 def use_mode(model, orderings, board, propagator=None):
     var_orderings = [MRV]#, DH]
-    val_orderings = [ARB]#, LCV]
+    val_orderings = [ARB, LCV]
 
     for o in var_orderings:
         var_ordering = None
@@ -259,7 +259,7 @@ def use_mode(model, orderings, board, propagator=None):
                 csp,var_array = model(board)
                 solver = BT(csp)
 
-                if propagator is None:
+                if propagator is None and o == MRV and v == ARB:
                     print("--------------------------------------------")
                     print("==== Running BT with", o, "+", v, "ordering ====")
                     print("--------------------------------------------")
@@ -276,10 +276,10 @@ def use_mode(model, orderings, board, propagator=None):
                     solver = BT(csp)
                     solver.bt_search(prop_GAC, var_ordering, val_ordering)
 
-                if check_solution(board, csp.get_all_cons()):
-                    print("Solution has been verified.")
-                else:
-                    print("This is not a valid Kakuro solution for the board.")
+                # if check_solution(board, csp.get_all_cons()):
+                #     print("Solution has been verified.")
+                # else:
+                #     print("This is not a valid Kakuro solution for the board.")
 
             except Exception:
                 print("One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc()))
@@ -327,4 +327,4 @@ def check_solution(kakuro_board, cons):
 
 ##RUN TEST CASES     
 if __name__=="__main__":
-    test_5x5_boards(kakuro_csp_model, orderings)
+    test_13x13_boards(kakuro_csp_model, orderings)
