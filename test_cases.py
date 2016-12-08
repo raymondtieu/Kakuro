@@ -178,8 +178,8 @@ def test_15x15_boards(model, var_orderings=[MRV], val_orderings=[ARB]):
             ]
 
     # use_mode(model, orderings, board, BT, name="")
-    use_mode(model, var_orderings, val_orderings, board, FC, name="")
-    use_mode(model, var_orderings, val_orderings, board, GAC, name="")
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
     print("----------------------")
     print("Testing 15x15 board #2")
@@ -203,8 +203,8 @@ def test_15x15_boards(model, var_orderings=[MRV], val_orderings=[ARB]):
             ]
 
     # use_mode(model, orderings, board, BT, name="")
-    use_mode(model, var_orderings, val_orderings, board, FC, name="")
-    use_mode(model, var_orderings, val_orderings, board, GAC, name="")
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
 def test_15x30_board(model, var_orderings=[MRV], val_orderings=[ARB]):
 
