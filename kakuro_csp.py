@@ -108,6 +108,11 @@ def init_variables(board, m, n):
 	return all_vars
 
 def get_entries(lst, is_row):
+	'''
+	Divide the a given row or column from a board into entries and their
+	corresponding clues. This will be used to set constraints on the entries
+	since the entire row or column should not be considered.
+	'''
 	all_entries = []
 	part = []
 	entry = {}
@@ -144,25 +149,3 @@ def verify_satified_constraints(solution, clue):
 
 	entries = [x for x in solution if not isinstance(x, tuple)]
 	return sum(entries) == clue
-
-
-if __name__ == '__main__':
-	board = [[0,0,(7,0),(6,0)],
-	    [0,(4,4),None,None],
-	    [(0,7),None,None,None],
-	    [(0,6),None,None,None]]
-
-	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7]]
-#	row = [[0],[(4,4)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[(0,15)],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[1,2,3,4,5,6,7],[0],[(0,9)],[1,2,3,4,5,6,7]]
-	# [[Var-K0,0, Var-K0,1, Var-K0,2, Var-K0,3], [Var-K1,0, Var-K1,1, Var-K1,2, Var-K1,3], [Var-K2,0, Var-K2,1, Var-K2,2, Var-K2,3], [Var-K3,0, Var-K3,1, Var-K3,2, Var-K3,3]]
-	#print(sat_tuples(row, 4))
-	#print(get_entries(row, True))
-
-	test = init_variables(board)
-
-	#print(test)
-	#print(test[1][2].cur_domain())
-
-#	get_entries_board(test)
-#	print('----------')
-	kakuro_csp_model(board)
