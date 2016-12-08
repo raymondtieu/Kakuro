@@ -3,6 +3,8 @@ from cspbase import *
 from propagators import *
 import itertools
 import traceback
+from kakuro_csp import *
+from functools import reduce
 
 ##############
 ##MODEL TEST CASES (KAKURO)
@@ -74,10 +76,13 @@ def test_full_run(model, stu_orderings, name=""):
         csp,var_array = model(board)
         solver = BT(csp)
         solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+        print(check_solution(board, csp.get_all_cons()))
 
+        csp,var_array = model(board)
         print("===== FC ====")
+        solver = BT(csp)
         solver.bt_search(prop_FC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
-
+        print(check_solution(board, csp.get_all_cons()))
 
         if check_solution(var_array):
             score = 5
@@ -88,7 +93,7 @@ def test_full_run(model, stu_orderings, name=""):
     except Exception:
 
         details = "One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc())
-
+    '''
     if score < 5:
         try:
             board = [[2, 2, 2, 4, 2],
@@ -129,7 +134,7 @@ def test_full_run(model, stu_orderings, name=""):
                 details = "Solution found in full run with LCV heuristic on %s was not a valid Hitori solution." % name
         except Exception:
             details = "One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc())
-
+    '''
     return score,details
 
 def test_ord_dh(model, stu_orderings):
@@ -197,50 +202,40 @@ def test_ord_mrv(model, stu_orderings):
 
     return 0, details
 
+def check_solution(kakuro_board, cons):
+    m = len(kakuro_board)
+    n = len(kakuro_board[0])
 
-########################################
-## Other helpers that may be of use
-#Checks whether a solution given by BT is correct.
-def check_solution(hitori_variable_array):
-    for i in range(len(hitori_variable_array)):
-        row_sol = []
-        blacks = [False] * len(hitori_variable_array)
-        for j in range(len(hitori_variable_array)):
-            if hitori_variable_array[i][j].get_assigned_value() != 0:
-                row_sol.append(hitori_variable_array[i][j].get_assigned_value())
-                blacks[j] = False
-            else:
-                if blacks[j - 1] or blacks[j]:
-                    print("1")
-                    return False
-                else:
-                    blacks[j] = True
-        if not check_list(row_sol):
-            print("2")
-            return False
+    board = init_variables(kakuro_board, m, n)
 
-    for i in range(len(hitori_variable_array)):
-        row_sol = []
-        blacks = [False] * len(hitori_variable_array)
-        for j in range(len(hitori_variable_array)):
-            if hitori_variable_array[j][i].get_assigned_value() != 0:
-                row_sol.append(hitori_variable_array[j][i].get_assigned_value())
-                blacks[j] = False
-            else:
-                if blacks[j - 1] or blacks[j]:
-                    print("3")
-                    return False
-                else:
-                    blacks[j] = True
-        if not check_list(row_sol):
-            print("4")
-            return False
+    var_array_dict = {}
 
+    for c in cons:
+        vars = c.get_scope()
+        soln = sum([v.get_assigned_value() for v in vars])
+        var_array_dict[str(vars)] = soln
+
+    # Check row solutions
+    for i in range(m):
+        entries = get_entries(board[i], True)
+        for e in entries:
+            scope = e['part']
+            if len(scope) > 0:
+                if str(scope) in var_array_dict:
+                    if e['clue'] != var_array_dict[str(scope)]:
+                        return False
+
+    # Check column solutions
+    for i in range(n):
+        col = [board[j][i] for j in range(m)]
+        entries = get_entries(col, False)
+        for e in entries:
+            scope = e['part']
+            if len(scope) > 0:
+                if str(scope) in var_array_dict:
+                    if e['clue'] != var_array_dict[str(scope)]:
+                        return False
     return True
-
-##Helper function that checks if a given list is valid
-def check_list(solution_list):
-    return len(solution_list) == len(set(solution_list))
 
 ##RUN TEST CASES 
 def main(stu_propagators=None, stu_models=None):
