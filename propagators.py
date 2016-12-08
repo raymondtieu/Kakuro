@@ -26,18 +26,30 @@ def prop_BT(csp, newVar=None):
             if not c.check(vals):
                 return False, []
     return True, []
-
+    
 
 def prop_FC(csp, newVar=None):
     if not newVar:
         return True, []
 
+    pruned = []
+
     for c in csp.get_cons_with_var(newVar):
-        # get all unassigned neighbours of newVar
-        # remove all values from neighbours that are inconsistent by assigning newVar
-        # if none of the neighbours have a DWO, return true with pruned (variable,value) pairs
-        # else return false
-        return False, []
+        if not c.has_support(newVar, newVar.get_assigned_value()):
+            return False, pruned
 
-    return True, []
+        # check all neighbours of newVar for consistency
+        for v in c.get_scope():
+            if v != newVar:
+                # check all assignments of the neighbour v for consistency
+                for x in v.cur_domain():
+                    # prune all inconsistent values of v
+                    if not c.has_support(v, x) and (v, x) not in pruned:
+                        v.prune_value(x)
+                        pruned.append((v, x))
 
+            # if pruning inconsistent values results in a DWO, backtrack
+            if (v.cur_domain_size() == 0):
+                return False, pruned
+
+    return True, pruned
