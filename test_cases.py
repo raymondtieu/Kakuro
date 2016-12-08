@@ -17,7 +17,7 @@ DH = "DH"
 ARB = "ARB"
 LCV = "LCV"
 
-def test_5x5_boards(model, orderings):
+def test_5x5_boards(model, var_orderings=[MRV, DH], val_orderings=[ARB, LCV]):
     print("--------------------")
     print("Testing 5x5 board #1")
     print("--------------------")
@@ -28,9 +28,9 @@ def test_5x5_boards(model, orderings):
              [(0,17),None,None,None,0],
              [(0,10),None,None,0,0]]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    use_mode(model, var_orderings, val_orderings, board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
     print("--------------------")
     print("Testing 5x5 board #2")
@@ -42,12 +42,13 @@ def test_5x5_boards(model, orderings):
              [(0,21),None,None,None,None],
              [0,(0,13),None,None,0]]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    # DH hangs
+    use_mode(model, [MRV], val_orderings, board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
 
-def test_9x8_boards(model, orderings):
+def test_9x8_boards(model, var_orderings=[MRV], val_orderings=[ARB, LCV]):
     
     print("--------------------")
     print("Testing 9x8 board #1")
@@ -63,9 +64,10 @@ def test_9x8_boards(model, orderings):
              [(0,18),None,None,None,None,None,0,0],
              [(0,12),None,None,(0,12),None,None,0,0]]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    # LCV takes too long
+    use_mode(model, var_orderings, [ARB], board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
     print("--------------------")
     print("Testing 9x8 board #2")
@@ -81,9 +83,9 @@ def test_9x8_boards(model, orderings):
              [(0,28),None,None,None,None,None,None,0],
              [0,0,(0,17),None,None,0,0,0]]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    use_mode(model, var_orderings, [ARB], board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
     print("--------------------")
     print("Testing 9x8 board #3")
@@ -100,11 +102,11 @@ def test_9x8_boards(model, orderings):
               [0, 0, 0, 0, (0,14), None, None, 0]
             ]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    use_mode(model, var_orderings, [ARB], board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
-def test_13x13_boards(model, orderings):
+def test_13x13_boards(model, var_orderings=[MRV], val_orderings=[ARB]):
     
     print("----------------------")
     print("Testing 13x13 board #1")
@@ -125,9 +127,9 @@ def test_13x13_boards(model, orderings):
                 [0,(0,17),None,None,(0,17),None,None,None,(0,10),None,None,0,0]
             ]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    # use_mode(model, orderings, board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
     print("----------------------")
     print("Testing 13x13 board #2")
@@ -148,11 +150,11 @@ def test_13x13_boards(model, orderings):
                 [0,0,0,0,0,0,(0,9),None,None,0,(0,16),None,None]
             ]
 
-    use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    # use_mode(model, orderings, board)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
-def test_15x15_boards(model, orderings):
+def test_15x15_boards(model, var_orderings=[MRV], val_orderings=[ARB]):
     
     print("----------------------")
     print("Testing 15x15 board #1")
@@ -176,8 +178,8 @@ def test_15x15_boards(model, orderings):
             ]
 
     # use_mode(model, orderings, board, BT, name="")
-    use_mode(model, orderings, board, FC, name="")
-    use_mode(model, orderings, board, GAC, name="")
+    use_mode(model, var_orderings, val_orderings, board, FC, name="")
+    use_mode(model, var_orderings, val_orderings, board, GAC, name="")
 
     print("----------------------")
     print("Testing 15x15 board #2")
@@ -201,10 +203,10 @@ def test_15x15_boards(model, orderings):
             ]
 
     # use_mode(model, orderings, board, BT, name="")
-    use_mode(model, orderings, board, FC, name="")
-    use_mode(model, orderings, board, GAC, name="")
+    use_mode(model, var_orderings, val_orderings, board, FC, name="")
+    use_mode(model, var_orderings, val_orderings, board, GAC, name="")
 
-def test_15x30_board(model, orderings):
+def test_15x30_board(model, var_orderings=[MRV], val_orderings=[ARB]):
 
     print("---------------------")
     print("Testing 15x30 board #1")
@@ -229,14 +231,11 @@ def test_15x30_board(model, orderings):
             ]
 
     # use_mode(model, orderings, board)
-    use_mode(model, orderings, board, FC)
-    use_mode(model, orderings, board, GAC)
+    use_mode(model, var_orderings, val_orderings, board, FC)
+    use_mode(model, var_orderings, val_orderings, board, GAC)
 
 
-def use_mode(model, orderings, board, propagator=None):
-    var_orderings = [MRV]#, DH]
-    val_orderings = [ARB, LCV]
-
+def use_mode(model, var_orderings, val_orderings, board, propagator=None):
     for o in var_orderings:
         var_ordering = None
 
@@ -244,8 +243,6 @@ def use_mode(model, orderings, board, propagator=None):
             var_ordering = orderings.ord_mrv
         elif o == DH:
             var_ordering = orderings.ord_dh
-        else:
-            var_ordering = orderings.ord_lcv
 
         for v in val_orderings:
             val_ordering = None
@@ -259,7 +256,7 @@ def use_mode(model, orderings, board, propagator=None):
                 csp,var_array = model(board)
                 solver = BT(csp)
 
-                if propagator is None and o == MRV and v == ARB:
+                if propagator is None:
                     print("--------------------------------------------")
                     print("==== Running BT with", o, "+", v, "ordering ====")
                     print("--------------------------------------------")
@@ -276,10 +273,10 @@ def use_mode(model, orderings, board, propagator=None):
                     solver = BT(csp)
                     solver.bt_search(prop_GAC, var_ordering, val_ordering)
 
-                # if check_solution(board, csp.get_all_cons()):
-                #     print("Solution has been verified.")
-                # else:
-                #     print("This is not a valid Kakuro solution for the board.")
+                if check_solution(board, csp.get_all_cons()):
+                    print("Solution has been verified.")
+                else:
+                    print("This is not a valid Kakuro solution for the board.")
 
             except Exception:
                 print("One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc()))
@@ -327,4 +324,8 @@ def check_solution(kakuro_board, cons):
 
 ##RUN TEST CASES     
 if __name__=="__main__":
-    test_13x13_boards(kakuro_csp_model, orderings)
+    test_5x5_boards(kakuro_csp_model)
+    test_9x8_boards(kakuro_csp_model)
+    # test_13x13_boards(kakuro_csp_model)
+    # test_15x15_boards(kakuro_csp_model)
+    # test_15x30_boards(kakuro_csp_model)
