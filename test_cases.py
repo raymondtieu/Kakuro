@@ -167,10 +167,46 @@ def test_full_run(model, stu_orderings, name=""):
 #        solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
 #        print(check_solution(board, csp.get_all_cons()))
 
+        # 15x15
+        board = [[0,(3,0),(7,0),0,0,0,0,0,0,0,(4,0),(17,0),0,0,0],
+                 [(0,6),None,None,0,(13,0),(4,0),0,0,0,(23,12),None,None,(3,0),0,0],
+                 [(0,3),None,None,(11,4),None,None,0,0,(3,17),None,None,None,None,(28,0),0],
+                 [0,(0,14),None,None,None,None,0,(4,9),None,None,0,(0,8),None,None,(23,0)],
+                 [0,0,(0,3),None,None,(7,0),(19,12),None,None,None,(3,0),(16,0),(0,15),None,None],
+                 [0,(16,0),(29,17),None,None,None,None,None,(23,0),(25,10),None,None,(0,11),None,None],
+                 [(0,10),None,None,(3,0),(0,3),None,None,(7,20),None,None,None,None,(16,9),None,None],
+                 [(0,14),None,None,None,(0,26),None,None,None,None,None,(24,0),(0,9),None,None,(16,0)],
+                 [0,(6,3),None,None,(17,0),(4,28),None,None,None,None,None,(0,19),None,None,None],
+                 [(0,11),None,None,(0,21),None,None,None,None,(3,11),None,None,(29,0),(24,13),None,None,],
+                 [(0,5),None,None,(0,10),None,None,(7,0),(16,27),None,None,None,None,None,0,0],
+                 [(0,8),None,None,(16,0),0,(0,13),None,None,None,0,(4,17),None,None,(24,0),0],
+                 [0,(0,10),None,None,(16,0),(3,11),None,None,0,(0,23),None,None,None,None,(4,0)],
+                 [0,0,(0,19),None,None,None,None,0,0,(0,10),None,None,(0,8),None,None],
+                 [0,0,0,(0,10),None,None,0,0,0,0,0,0,(0,11),None,None]
+                ]
+
+        # 15x15
+        # board = [[0,0,(39,0),(10,0),0,0,0,0,0,(16,0),(3,0),0,(22,0),(30,0),0],
+        #          [0,(0,9),None,None,0,0,(17,0),(4,0),(0,11),None,None,(17,13),None,None,0],
+        #          [0,(0,10),None,None,0,(0,10),None,None,(4,29),None,None,None,None,None,0],
+        #          [0,(17,12),None,None,0,(0,12),None,None,None,(7,0),(17,19),None,None,None,0],
+        #          [(0,13),None,None,None,0,0,0,(0,13),None,None,None,(11,8),None,None,0],
+        #          [(0,15),None,None,(16,0),0,0,(17,0),(30,0),(10,23),None,None,None,None,(4,0),(17,0)],
+        #          [0,(0,16),None,None,(29,0),(4,21),None,None,None,None,(3,14),None,None,None,None],
+        #          [0,(4,0),(16,33),None,None,None,None,None,None,(16,3),None,None,(16,10),None,None],
+        #          [(0,8),None,None,(21,11),None,None,(7,30),None,None,None,None,None,None,(22,0),0],
+        #          [(0,23),None,None,None,None,(4,20),None,None,None,None,0,(0,8),None,None,(4,0)],
+        #          [0,0,(11,17),None,None,None,None,(16,0),0,0,0,0,(10,7),None,None],
+        #          [0,(0,5),None,None,(16,13),None,None,None,(4,0),(3,0),0,(0,12),None,None,None],
+        #          [0,(0,12),None,None,None,(17,0),(3,10),None,None,None,0,(0,5),None,None,0],
+        #          [0,(0,24),None,None,None,None,None,(0,4),None,None,0,(0,7),None,None,0],
+        #          [0,(0,11),None,None,(0,9),None,None,0,0,0,0,(0,4),None,None,0]
+        #         ]
+
         csp,var_array = model(board)
         print("===== FC ====")
         solver = BT(csp)
-        solver.bt_search(prop_FC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+        solver.bt_search(prop_GAC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
         print(check_solution(board, csp.get_all_cons()))
 
         if check_solution(var_array):
