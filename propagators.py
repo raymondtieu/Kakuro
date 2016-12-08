@@ -30,6 +30,10 @@ def prop_BT(csp, newVar=None):
     return True, []
 
 def prop_FC(csp, newVar=None):
+    '''
+    Do forward checking propogation. Algorithm is modeled after FCCheck(C, x)
+    from class slide deck "CSP-Lecture.pdf" page 42.
+    '''
     if not newVar:
         return True, []
 
@@ -57,7 +61,8 @@ def prop_FC(csp, newVar=None):
 
 def prop_GAC(csp, newVar=None):
     '''
-        
+    Do GAC propagation. Algorithm is modeled after GAC_Enforce from class 
+    slide deck "CSP-Lecture.pdf" page 84.
     '''
     gac_queue = deque()
     pruned = []
@@ -72,6 +77,8 @@ def prop_GAC(csp, newVar=None):
 
         for v in c.get_unasgn_vars():
             for d in v.cur_domain():
+                
+                # find all supporting values for the assignment of newVar
                 if not c.has_support(v, d):
                     v.prune_value(d)
                     pruned.append((v, d))
