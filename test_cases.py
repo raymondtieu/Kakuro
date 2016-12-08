@@ -13,7 +13,211 @@ from functools import reduce
 def model_import(stu_models):
     return 0
 
+def test_9x8_boards(model, stu_orderings, name=""):
+    
+    print("--------------------")
+    print("Testing 9x8 board #1")
+    print("--------------------")
 
+    board = [[0,0,(40,0),(13,0),0,0,(42,0),(16,0)],
+                [0,(0,11),None,None,(15,0),(0,14),None,None],
+                [0,(13,18),None,None,None,(14,15),None,None],
+                [(0,11),None,None,(0,24),None,None,None,0],
+                [(0,17),None,None,(7,0),(0,10),None,None,(12,0)],
+                [0,(0,3),None,None,(10,0),(0,14),None,None],
+                [0,(15,17),None,None,None,(8,6),None,None],
+                [(0,12),None,None,(0,14),None,None,None,0],
+                [(0,7),None,None,0,(0,12),None,None,0]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+    print("--------------------")
+    print("Testing 9x8 board #2")
+    print("--------------------")
+    
+    board = [[0,(4,0),(13,0),0,(41,0),(6,0),0,0],
+                [(0,5),None,None,(0,11),None,None,(11,0),(13,0)],
+                [(0,6),None,None,(10,19),None,None,None,None],
+                [0,(0,20),None,None,None,(0,8),None,None],
+                [0,0,(0,7),None,None,(9,0),0,0],
+                [0,(5,0),(8,0),(0,17),None,None,(12,0),0],
+                [(0,4),None,None,(10,11),None,None,None,(12,0)],
+                [(0,16),None,None,None,None,(0,17),None,None],
+                [0,0,(0,8),None,None,(0,5),None,None]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+def test_13x13_boards(model, stu_orderings, name=""):
+    
+    print("--------------------")
+    print("Testing 13x13 board #1")
+    print("--------------------")
+
+    board = [[0,0,0,(3,0),(10,0),0,(6,0),(16,0),(15,0),0,(16,0),(15,0),0],
+                [0,0,(0,4),None,None,(0,14),None,None,None,(3,8),None,None,0],
+                [0,0,(0,3),None,None,(3,26),None,None,None,None,None,None,(17,0)],
+                [0,(17,0),(4,0),(0,9),None,None,None,(30,6),None,None,(0,11),None,None],
+                [(0,10),None,None,(11,3),None,None,(0,8),None,None,0,(10,13),None,None],
+                [(0,12),None,None,None,(16,0),0,(29,11),None,None,(17,7),None,None,0],
+                [0,0,(0,11),None,None,(0,15),None,None,(0,11),None,None,0,0],
+                [0,0,(34,10),None,None,(34,14),None,None,(0,9),None,None,(4,0),(3,0)],
+                [0,(17,11),None,None,(0,17),None,None,0,(16,0),(11,8),None,None,None],
+                [(0,13),None,None,0,(3,11),None,None,(23,8),None,None,(0,3),None,None],
+                [(0,17),None,None,(17,8),None,None,(3,22),None,None,None,(17,0),0,0],
+                [0,(0,31),None,None,None,None,None,None,(0,12),None,None,0,0],
+                [0,(0,17),None,None,(0,17),None,None,None,(0,10),None,None,0,0]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+    print("--------------------")
+    print("Testing 13x13 board #2")
+    print("--------------------")
+    
+    board = [[0,(4,0),(23,0),0,0,(17,0),(3,0),0,0,0,0,0,0],
+                [(0,12),None,None,(4,0),(28,9),None,None,0,0,0,0,0,0],
+                [(0,29),None,None,None,None,None,None,0,0,0,0,0,0],
+                [0,(0,9),None,None,None,(16,0),0,0,0,0,(16,0),(29,0),(7,0)],
+                [0,0,0,(3,8),None,None,(6,0),0,(17,0),(42,21),None,None,None],
+                [0,0,(30,17),None,None,None,None,(24,29),None,None,None,None,None],
+                [0,(24,16),None,None,None,(17,27),None,None,None,None,(4,8),None,None],
+                [(0,16),None,None,(3,23),None,None,None,None,(4,12),None,None,None,0],
+                [(0,25),None,None,None,None,None,(0,18),None,None,None,None,0,0],
+                [(0,19),None,None,None,0,0,0,(0,10),None,None,(3,0),(24,0),0],
+                [0,0,0,0,0,0,0,(4,0),(17,18),None,None,None,(16,0)],
+                [0,0,0,0,0,0,(0,34),None,None,None,None,None,None],
+                [0,0,0,0,0,0,(0,9),None,None,0,(0,16),None,None]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+def test_15x15_boards(model, stu_orderings, name=""):
+    
+    print("--------------------")
+    print("Testing 15x15 board #1")
+    print("--------------------")
+
+    board = [[0,(3,0),(7,0),0,0,0,0,0,0,0,(4,0),(17,0),0,0,0],
+             [(0,6),None,None,0,(13,0),(4,0),0,0,0,(23,12),None,None,(3,0),0,0],
+             [(0,3),None,None,(11,4),None,None,0,0,(3,17),None,None,None,None,(28,0),0],
+             [0,(0,14),None,None,None,None,0,(4,9),None,None,0,(0,8),None,None,(23,0)],
+             [0,0,(0,3),None,None,(7,0),(19,12),None,None,None,(3,0),(16,0),(0,15),None,None],
+             [0,(16,0),(29,17),None,None,None,None,None,(23,0),(25,10),None,None,(0,11),None,None],
+             [(0,10),None,None,(3,0),(0,3),None,None,(7,20),None,None,None,None,(16,9),None,None],
+             [(0,14),None,None,None,(0,26),None,None,None,None,None,(24,0),(0,9),None,None,(16,0)],
+             [0,(6,3),None,None,(17,0),(4,28),None,None,None,None,None,(0,19),None,None,None],
+             [(0,11),None,None,(0,21),None,None,None,None,(3,11),None,None,(29,0),(24,13),None,None,],
+             [(0,5),None,None,(0,10),None,None,(7,0),(16,27),None,None,None,None,None,0,0],
+             [(0,8),None,None,(16,0),0,(0,13),None,None,None,0,(4,17),None,None,(24,0),0],
+             [0,(0,10),None,None,(16,0),(3,11),None,None,0,(0,23),None,None,None,None,(4,0)],
+             [0,0,(0,19),None,None,None,None,0,0,(0,10),None,None,(0,8),None,None],
+             [0,0,0,(0,10),None,None,0,0,0,0,0,0,(0,11),None,None]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+    print("--------------------")
+    print("Testing 15x15 board #2")
+    print("--------------------")
+
+    board = [[0,0,(39,0),(10,0),0,0,0,0,0,(16,0),(3,0),0,(22,0),(30,0),0],
+             [0,(0,9),None,None,0,0,(17,0),(4,0),(0,11),None,None,(17,13),None,None,0],
+             [0,(0,10),None,None,0,(0,10),None,None,(4,29),None,None,None,None,None,0],
+             [0,(17,12),None,None,0,(0,12),None,None,None,(7,0),(17,19),None,None,None,0],
+             [(0,13),None,None,None,0,0,0,(0,13),None,None,None,(11,8),None,None,0],
+             [(0,15),None,None,(16,0),0,0,(17,0),(30,0),(10,23),None,None,None,None,(4,0),(17,0)],
+             [0,(0,16),None,None,(29,0),(4,21),None,None,None,None,(3,14),None,None,None,None],
+             [0,(4,0),(16,33),None,None,None,None,None,None,(16,3),None,None,(16,10),None,None],
+             [(0,8),None,None,(21,11),None,None,(7,30),None,None,None,None,None,None,(22,0),0],
+             [(0,23),None,None,None,None,(4,20),None,None,None,None,0,(0,8),None,None,(4,0)],
+             [0,0,(11,17),None,None,None,None,(16,0),0,0,0,0,(10,7),None,None],
+             [0,(0,5),None,None,(16,13),None,None,None,(4,0),(3,0),0,(0,12),None,None,None],
+             [0,(0,12),None,None,None,(17,0),(3,10),None,None,None,0,(0,5),None,None,0],
+             [0,(0,24),None,None,None,None,None,(0,4),None,None,0,(0,7),None,None,0],
+             [0,(0,11),None,None,(0,9),None,None,0,0,0,0,(0,4),None,None,0]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+def test_15x30_board(model, stu_orderings, name=""):
+
+    print("--------------------")
+    print("Testing 15x30 board #1")
+    print("--------------------")
+
+    # 15x30 
+    board = [[0, (4,0), (11,0), 0, (3,0), (24, 0), 0, 0, 0, (16,0), (23, 0), (7,0), 0, 0, (24,0), (3,0), 0, (11, 0), (4, 0), (16, 0), 0, (29, 0), (3, 0), 0, 0, 0, 0, (10,0), (23,0), 0],
+             [(0,3), None, None, (24,10), None, None, 0, (35, 0), (17,19), None, None, None, 0, (0,10), None, None, (3,12), None, None, None, (0,11), None, None, 0, 0, (6,0), (30,16), None, None, 0],
+             [(0,23), None, None, None, None, None, (3, 31), None, None, None, None, None, 0, (10,26), None, None, None, None, None, None, (40, 6), None, None, 0, (19,22), None, None, None, None, 0],
+             [0, (0,13), None, None, (0,26), None, None, None, None, (0,11), None, None, (17,10), None, None, (0, 5), None, None, (16,0), (0,13), None, None, 0, (0,24), None, None, None, None, None, 0],
+             [0, (0,10), None, None, 0, (0,9), None, None, (16,0), 0, (38,0), (3,11), None, None, 0, 0, (0,10), None, None, (16,11), None, None, 0, (6,17), None, None, None, (4,0), 0, 0],
+             [0, 0, 0, 0, 0, 0, (4,12), None, None, (23,15), None, None, None, None, (16,0), (29,0), 0, (0,17), None, None, None, 0, (16,3), None, None, (8,7), None, None, (3,0), (4,0)],
+             [0, 0, 0, 0, (4,0), (23,35), None, None, None, None, None, None, (0,15), None, None, None, 0, 0, (0,9), None, None, (23,15), None, None, None, None, (3,6), None, None, None],
+             [0, (17,0), (16,0), (0,13), None, None, None, (23,0), (4,10), None, None, 0, 0, (0,16),None, None, (17,0), 0, 0, (0,21), None, None, None, None, (17,3), None, None, (0,4), None, None],
+             [(0,16), None, None, (3,7),None, None, (13,25), None, None, None, None, (3,0), 0, 0, (0,15), None, None, (10,0), 0, (4,17), None, None, (3,0), (16,12), None, None, None, 0, 0, 0],
+             [(0,19),None, None, None, (11,17), None, None, None, None, (0,4), None, None, (17,0), 0, (0,18), None, None, None, (17,32), None, None, None, None, None, None, 0, 0, 0, 0, 0],
+             [0, 0, (0,4), None, None, (24,11), None, None, 0, (29,17), None, None, None, (10,0), 0, 0, (0,20), None, None, None, None, (0,3), None, None, (3,0), 0, 0, (23,0), (11,0), 0],
+             [0, 0, (6,0), (23,16), None, None, None, 0, (0,16), None, None, (0,10), None, None, (16,0), 0, (24,12), None, None, (6,0), (24,0), 0, (17,8), None, None, (24,0), (0,13), None, None, 0],
+             [0, (0,26), None, None, None, None, None, 0, (4,9), None, None, (16,0), (3,10), None, None, (4,13),None, None, (0,9), None, None, (4,21), None, None, None, None, (3,8), None, None, (17,0)],
+             [0, (0,19), None, None, None, None, 0, (0,12), None, None, (0,30), None, None, None, None, None, None, 0, (0,21), None, None, None, None, None, (0,27), None, None, None, None, None],
+             [0, (0,8), None, None, 0, 0, 0, (0,9), None, None, (0,14), None, None, None, (0,8), None, None, 0, (0,14), None, None, None, 0, 0, (0, 10), None, None, (0,12), None, None]
+            ]
+
+    use_Mode(model, stu_orderings, board, "BT", name="")
+    use_Mode(model, stu_orderings, board, "FC", name="")
+    use_Mode(model, stu_orderings, board, "GAC", name="")
+
+
+def use_Mode(model, stu_orderings, board, mode, name=""):
+    score = 0
+    try:
+        csp,var_array = model(board)
+        solver = BT(csp)
+
+        if mode == "BT":
+            print("--------------------")
+            print("==== Using BT ====")
+            print("--------------------")
+            solver.bt_search(prop_BT, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+        elif mode == "FC":
+            print("--------------------")
+            print("===== Using FC ====")
+            print("--------------------")
+            solver.bt_search(prop_FC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+        elif mode == "GAC":
+            print("--------------------")
+            print("===== Using GAC ====")
+            print("--------------------")
+            solver = BT(csp)
+            solver.bt_search(prop_GAC, stu_orderings.ord_mrv, stu_orderings.val_arbitrary)
+
+        print(check_solution(board, csp.get_all_cons()))
+
+        if check_solution(var_array):
+            score = 5
+            details = ""
+        else:
+            details = "Solution found in full run with MRV heuristic on %s was not a valid Hitori solution." % name
+
+    except Exception:
+
+        details = "One or more runtime errors occurred while trying a full run on %s: %r" % (name, traceback.format_exc())
+
+    return score,details
 
 ##Checks that code is able to encode proper constraints over some problem.
 def test_full_run(model, stu_orderings, name=""):
@@ -367,7 +571,7 @@ def main(stu_propagators=None, stu_models=None):
     import orderings as stu_orderings
     import kakuro_csp as stu_models
 
-    score, details = test_full_run(stu_models.kakuro_csp_model, stu_orderings)
+    score, details = test_9x8_boards(stu_models.kakuro_csp_model, stu_orderings)
     
 if __name__=="__main__":
     main()
