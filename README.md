@@ -18,3 +18,6 @@ if __name__=="__main__":
     
 To test each component, simply uncomment/comment (adding/removing # from the lines) and run the file.
 You should see the results along with each test being ran.
+
+
+Each of the boards in testing can be viewed under ./kakuro_boards/
