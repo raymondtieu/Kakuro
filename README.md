@@ -16,4 +16,5 @@ if __name__=="__main__":
     # test_15x30_boards(kakuro_csp_model)
 ```
     
-To test each component, simply uncomment/comment the ones needed.
+To test each component, simply uncomment/comment the ones needed and run the file.
+You should see the results along with each test being ran.
