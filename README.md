@@ -21,3 +21,5 @@ You should see the results along with each test being ran.
 
 
 Each of the boards in testing can be viewed under ./kakuro_boards/
+
+kakuro_results.txt can be opened in a different text editor other than notepad to view all the results of testing
